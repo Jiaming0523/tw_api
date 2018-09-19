@@ -12,10 +12,10 @@ import sys
 import wget
 
 #Twitter API credentials
-consumer_key = "jfW2IxwXDeLZ0o4cna16rITPy"
-consumer_secret = "FpuJHKCixotvKtKZNzwMNNIBDBxoCKz0fRA3q1zzzHGrzOwSF9"
-access_key = "1041024802125963264-lVPXOYNwBss9X3jHI76Jymuis9449U"
-access_secret = "v0AMgvUb092S4to6zNws8P329DoSGXiPOgyU4X2kNXo0e"
+consumer_key = ""
+consumer_secret = ""
+access_key = ""
+access_secret = ""
 
 
 def get_all_tweets(screen_name):
@@ -80,7 +80,21 @@ def videooutput():
     #print ("Done")
     #file.close()
 
+def label():
+    client = vision.ImageAnnotatorClient()
+    file_name = os.path.join(os.path.dirname(__file__),'/home/ece-student/picture/0.jpg')
+    with io.open(file_name, 'rb') as image_file:
+        content = image_file.read()
+
+    image = types.Image(content=content)
+    response = client.label_detection(image=image)
+    labels = response.label_annotations
+    print('Labels:')
+    for label in labels:
+        print(label.description)
+
 if __name__ == '__main__':
     #pass in the username of the account you want to download
     get_all_tweets("@real")
     videooutput()
+    label()
