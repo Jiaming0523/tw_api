@@ -60,9 +60,17 @@ def get_all_tweets(screen_name):
         if(len(media) > 0):
              media_files.add(media[0]['media_url'])
  
-    for media_file in media_files:
-        wget.download(media_file)
-    #write tweet objects to JSON
+    for url in media_files:
+    	print(url)
+    	urllib.request.urlretrieve(url,'/home/ece-student/picture/%d.jpg'%i)
+    	i += 1
+def videooutput():
+    os.system("ffmpeg -i /home/ece-student/picture/%d.jpg -y test.mp4")
+    #close the file
+    #print ("Done")
+    #file.close()
+        
+        #write tweet objects to JSON
     #file = open('tweet.json', 'w') 
     #print ("Writing tweet objects to JSON please wait...")
     #for status in alltweets:
@@ -75,3 +83,4 @@ def get_all_tweets(screen_name):
 if __name__ == '__main__':
     #pass in the username of the account you want to download
     get_all_tweets("@real")
+    videooutput()
