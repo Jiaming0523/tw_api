@@ -1,4 +1,3 @@
-# tw_api
 # -*- coding: utf-8 -*-
 
 #!/usr/bin/env python
@@ -10,10 +9,13 @@ import tweepy #https://github.com/tweepy/tweepy
 import json
 import sys
 import wget
+import urllib
 import os
+import io
+import subprocess
+
 from google.cloud import vision
 from google.cloud.vision import types
-
 #Twitter API credentials
 consumer_key = ""
 consumer_secret = ""
@@ -62,42 +64,57 @@ def get_all_tweets(screen_name):
         media = status.entities.get('media', [])
         if(len(media) > 0):
              media_files.add(media[0]['media_url'])
+    num=1
  
+
+    i=0
     for url in media_files:
     	print(url)
     	urllib.request.urlretrieve(url,'/home/ece-student/picture/%d.jpg'%i)
     	i += 1
-def videooutput():
-    os.system("ffmpeg -i /home/ece-student/picture/%d.jpg -y test.mp4")
-    #close the file
-    #print ("Done")
-    #file.close()
-        
-        #write tweet objects to JSON
+
+
+    
+
+    #write tweet objects to JSON
     #file = open('tweet.json', 'w') 
     #print ("Writing tweet objects to JSON please wait...")
     #for status in alltweets:
      #   json.dump(status._json,file,sort_keys = True,indent = 4)
-    
+#def videooutput():
+ #   os.system("ffmpeg -f image2 -r 0.2 -i /home/ece-student/picture/%01d.jpg out.mp4")
     #close the file
     #print ("Done")
     #file.close()
 
 def label():
+
     client = vision.ImageAnnotatorClient()
-    file_name = os.path.join(os.path.dirname(__file__),'/home/ece-student/picture/0.jpg')
-    with io.open(file_name, 'rb') as image_file:
-        content = image_file.read()
+    dir=path
+    num=0
+    for root,dirname,filenames in os.walk(dir):
+        for filename in filenames:
+            if os.path.splitext(filename)[1]=='.jpg':
+                num = num +1
 
-    image = types.Image(content=content)
-    response = client.label_detection(image=image)
-    labels = response.label_annotations
-    print('Labels:')
-    for label in labels:
-        print(label.description)
 
+    i=0
+    while (i<num):
+        file_name = os.path.join(os.path.dirname(__file__),path+'/'+str(i)+'.jpg')
+        with io.open(file_name, 'rb') as image_file:
+            content = image_file.read()
+        
+
+        image = types.Image(content=content)
+        response = client.label_detection(image=image)
+        labels = response.label_annotations
+        print('Labels:')
+        for label in labels:
+            print(label.description)
+        i += 1
 if __name__ == '__main__':
     #pass in the username of the account you want to download
-    get_all_tweets("@real")
-    videooutput()
+    get_all_tweets("@Ladygaga")
+    path=os.getcwd()
     label()
+  
