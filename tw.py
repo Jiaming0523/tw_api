@@ -2,7 +2,6 @@
 
 #!/usr/bin/env python
 # encoding: utf-8
-#Author - Prateek Mehta
 
 
 import tweepy #https://github.com/tweepy/tweepy
@@ -54,7 +53,7 @@ def get_all_tweets(screen_name):
         if(len(alltweets) > 15):
             break
         print ("...%s tweets downloaded so far" % (len(alltweets)))
-       
+    #get all urls from all tweets
     media_files = set()
     for status in alltweets:
         media = status.entities.get('media', [])
@@ -62,7 +61,7 @@ def get_all_tweets(screen_name):
              media_files.add(media[0]['media_url'])
     num=1
  
-
+    #download all urls and rename pictures with numbers
     i=0
     for url in media_files:
     	print(url)
@@ -70,22 +69,15 @@ def get_all_tweets(screen_name):
     	i += 1
 
 
-    
-
-    #write tweet objects to JSON
-    #file = open('tweet.json', 'w') 
-    #print ("Writing tweet objects to JSON please wait...")
-    #for status in alltweets:
-     #   json.dump(status._json,file,sort_keys = True,indent = 4)
-#def videooutput():
- #   os.system("ffmpeg -f image2 -r 0.2 -i /home/ece-student/picture/%01d.jpg out.mp4")
-    #close the file
-    #print ("Done")
-    #file.close()
-
+    #convert seriral pictures to vedio
+def videooutput():
+    os.system("ffmpeg -f image2 -r 0.2 -i /home/ece-student/picture/%01d.jpg out.mp4")
+ 
+   #attach labels to pictures using google apis
 def label():
-
+    #initialize google vision api
     client = vision.ImageAnnotatorClient()
+    #get the number of pictures
     dir=path
     num=0
     for root,dirname,filenames in os.walk(dir):
@@ -93,7 +85,7 @@ def label():
             if os.path.splitext(filename)[1]=='.jpg':
                 num = num +1
 
-
+    #attach labels for every picture
     i=0
     while (i<num):
         file_name = os.path.join(os.path.dirname(__file__),path+'/'+str(i)+'.jpg')
