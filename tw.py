@@ -12,6 +12,7 @@ import urllib
 import os
 import io
 import subprocess
+from PIL import Image,ImageDraw,ImageFont
 
 from google.cloud import vision
 from google.cloud.vision import types
@@ -96,6 +97,10 @@ def label():
         image = types.Image(content=content)
         response = client.label_detection(image=image)
         labels = response.label_annotations
+        im = Image.open(file_name)
+        draw = ImageDraw.Draw(im)
+        font = ImageFont.truetype('/Library/Fonts/Trattatello.ttf',32)
+        x,y=(20,0)
         print('Labels:')
         for label in labels:
             print(label.description)
