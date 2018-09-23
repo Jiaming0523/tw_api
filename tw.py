@@ -102,8 +102,13 @@ def label():
         i += 1
 if __name__ == '__main__':
     #pass in the username of the account you want to download
-    get_all_tweets("@Ladygaga")
-    path=os.getcwd()
-    label()
-    videooutput()
+    screen_name=str(input("please input your screen name\n"))
+    try:
+        get_all_tweets(screen_name)
+    except tweepy.error.TweepError as err:
+        print("screen name dosn't exist")
+    else
+        path=os.getcwd()
+        label()
+        videooutput()
   
