@@ -32,4 +32,5 @@ from google.cloud.vision import types
 
 
 3. More sources
+
 https://cloud.google.com/vision/docs/libraries
