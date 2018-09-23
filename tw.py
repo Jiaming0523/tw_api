@@ -71,7 +71,7 @@ def get_all_tweets(screen_name):
 
     #convert seriral pictures to vedio
 def videooutput():
-    os.system("ffmpeg -f image2 -r 0.2 -i /home/ece-student/picture/%01d.jpg out.mp4")
+    os.system("ffmpeg -f image2 -r 0.2 -i /home/ece-student/picture/%01d.jpg  -vf 1350:-2 out.mp4")
  
    #attach labels to pictures using google apis
 def label():
