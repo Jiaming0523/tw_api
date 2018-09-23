@@ -1,12 +1,20 @@
 MINI PROJECT1 
 
 1. Environment setup
-tweepy           pip install tweepy
-subprocess       pip install subprocess
-ffmpeg           sudo apt-get update 
- 
+tweepy:           
+                  
+                  pip install tweepy
+subprocess:
+                  
+                  pip install subprocess
+ffmpeg:
+                 
+                 sudo apt-get update 
+                 
                  sudo apt-get install ffmpeg   
-google_cloud_vision      pip install google-cloud-vision
+google_cloud_vision:      
+
+                 pip install google-cloud-vision
 
 
 
