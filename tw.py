@@ -97,6 +97,7 @@ def label():
         image = types.Image(content=content)
         response = client.label_detection(image=image)
         labels = response.label_annotations
+        #draw the labels on the picture
         im = Image.open(file_name)
         draw = ImageDraw.Draw(im)
         font = ImageFont.truetype('/Library/Fonts/Trattatello.ttf',32)
