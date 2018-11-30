@@ -93,19 +93,6 @@ def label():
         with io.open(file_name, 'rb') as image_file:
             content = image_file.read()
         
-
-        image = types.Image(content=content)
-        response = client.label_detection(image=image)
-        labels = response.label_annotations
-        #draw the labels on the picture
-        im = Image.open(file_name)
-        draw = ImageDraw.Draw(im)
-        font = ImageFont.truetype('/Library/Fonts/Trattatello.ttf',32)
-        x,y=(20,0)
-        print('Labels:')
-        for label in labels:
-            print(label.description)
-        i += 1
 if __name__ == '__main__':
     #pass in the username of the account you want to download
     screen_name=str(input("please input your screen name\n"))
